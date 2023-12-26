@@ -23,7 +23,7 @@ git clone https://github.com/mrhouse-sweet/mechanical_arm_SDK-docs.git
 
 ```bash
 sudo apt update
-sudo apt install -y libspdlog-dev libopencv-dev libudev-dev
+sudo apt install -y libspdlog-dev libopencv-dev libudev-dev libfmt-dev
 ```
 + `将usrlib中的libcontrolcan.so  libmylibscan.so libmylibti5.so文件拷贝到/usr/lib/下`
 
