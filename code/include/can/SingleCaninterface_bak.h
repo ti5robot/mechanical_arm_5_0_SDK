@@ -4,6 +4,8 @@
 #include <iostream>
 #include "can/tcontrolcanbase.h"
 #include "can/tcontrolcanfactor.h"
+class TControlCanFactor;
+
 class SCanInterface
 {
 public:
@@ -13,9 +15,9 @@ public:
     //    parameterList是参数列表,nodeList是关节具体节点.nodeCount是关节长度
     bool getParameter(uint32_t *parameterList, int parameterType,int nodeCount);
     bool getParameter(uint8_t *nodeList,uint32_t *parameterList, int parameterType,int nodeCount);
-    //uint32_t a<-getParameter.parameterType;
     bool setParameter(uint32_t *parameterList, int parameterType,int nodeCount);
     bool setParameter(uint8_t *nodeList,uint32_t *parameterList, int parameterType,int nodeCount);
+    bool saveParameter();
 private:
     SCanInterface();
     static SCanInterface* instance;

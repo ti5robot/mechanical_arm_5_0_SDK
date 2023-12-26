@@ -1,0 +1,143 @@
+#ifndef __TEST__H__
+#define __TEST__H__
+
+/*实现机械臂的直线运动需要以下步骤：
+
+确定起始点和终点的位置和姿态，可以使用函数Pos2Matrix()将位置转换为矩阵。
+
+计算起始点和终点之间的距离和方向向量，可以使用函数vec_rescale()和vec_cross()。
+
+计算机械臂需要移动的距离和速度，可以使用函数calcuk()和calcuvmax()。
+
+计算机械臂需要移动的步数和每步的关节角度，可以使用函数steppersecond()。
+
+计划机械臂的运动轨迹，可以使用函数plan_move()。
+
+执行机械臂的运动，可以使用函数move_to_joint()或move_to_pos()。
+
+需要注意的是，机械臂的直线运动可能会遇到碰撞或者超出工作空间的问题，
+需要使用函数checkcollision()和checkinputpos()来检查并避免这些问题的发生。
+在main函数中，你需要先初始化机械臂的控制器和连接，然后调用move_to_joint()或
+move_to_pos()函数来执行机械臂的直线运动。*/
+
+float start_pos[6]={-80,0,500,0,-1.57,0};//
+TH.pos[0] = -80;
+    TH.pos[1] = 0;
+    TH.pos[2] = 500.1;
+    TH.pos[3] = 0;
+    TH.pos[4] = -1.5708;
+    TH.pos[5] = 0;
+#endif
+
+#include <cmath>
+#include <iostream>
+
+using namespace std;
+
+const int IDNUM = 6; // 机械臂关节数量
+
+/*
+// 机械臂状态检测函数
+bool checkjbypos() {}
+bool checkcollision() {}
+
+// 坐标变换函数
+void j2Matrix() {}
+int gotostep(int now,bool recall,bool dft[3]) {}
+bool Matrix2j() {}
+void Pos2Matrix() {}
+
+// 计算函数
+void getd56_3(float d56_3[3],float P5[3],float P6[3]) {}
+void getX6_5(float X6_5[3]) {} // after T06
+bool Matrix2Pos() {}
+bool checkinputj() {}
+bool checkinputpos() {}
+void vec_rescale(float v[3], float l, float nv[3]) {}
+float vec_length(float v[2]) {}
+void vec2d_rescale(float v1[2], float l, float v2[2]) {}
+float vec_angle(float v1[3], float v2[3], float f) {}
+float solve_trangle(float a, float b, float c) {}
+void vec_cross(float v1[3], float v2[3], float v[3]) {}
+float calcu_angle(float sa, float ca, float cp2) {}
+void setn(float npL[IDNUM]) {}
+void movebyn(float npL[IDNUM]) {}
+void rest(int mode) {}
+
+// 移动函数
+void ACTmove(float tm, int mode, float nparameterList[][IDNUM]) {}
+void UPRmove(float tm, int mode, float nparameterList[][IDNUM]) {}
+
+// 运动规划函数
+float calcuk(int nmax) {}
+float calcuvmax(int gap, float tm) {}
+float steppersecond(float t, float k, int nmax) {}
+void plan_move(int mode) {}
+
+// 移动控制函数
+bool move_to_joint(int mode) {}
+bool move_to_pos(int mode) {}
+
+*/
+
+// 机械臂规划直线运动函数
+bool linear_move(float x, float y, float z, float speed) {
+    // 将目标点坐标转换为齐次矩阵
+    float des_pos[4][4] = {{1, 0, 0, x},
+                           {0, 1, 0, y},
+                           {0, 0, 1, z},
+                           {0, 0, 0, 1}};
+
+    // 获取当前末端执行器的位置和姿态
+    Pos2Matrix();
+
+    // 将当前位置和目标位置之间的直线路径进行规划
+    plan_move(0);
+    
+    // 计算期望速度
+    float max_speed = calcuvmax(10, 1); // 假设最大加速度为 10，运动时间为 1s
+    float expect_speed = fmin(speed, max_speed);
+
+    // 将规划后的路径作为目标位置
+    float des_pos_list[4][4];
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            des_pos_list[i][j] = npList[i][j];
+        }
+    }
+
+    // 移动到目标位置（使用轨迹规划）
+    float t = 0;
+    float k = calcuk(10000); // 假设一定的精度误差
+    float last_t = 0;
+    while (t < 1) {
+        float cur_speed = steppersecond(t, k, 10000);
+        if (cur_speed <= expect_speed) { // 当前速度已经达到期望速度
+            last_t = t;
+            move_to_pos(0);
+        } else { // 当前速度还没达到期望速度，继续按照当前速度移动
+            float dt = (expect_speed / cur_speed) * 0.01; // 0.01s 为采样周期，可以适当调整
+            t += dt;
+            ACTmove(dt, 0, des_pos_list);
+        }
+    }
+
+    // 规划回初始位姿
+    float ori_pos_list[4][4] = {{1, 0, 0, 0},
+                                {0, 1, 0, 0},
+                                {0, 0, 1, 0},
+                                {0, 0, 0, 1}};
+    plan_move(0);
+
+    // 移动到初始位姿
+    while (!move_to_pos(0)) {}
+
+    return true;
+}
+
+/*
+// 示例使用方法
+int main() {
+    linear_move(10, 20, 30, 100); // 在直线上移动到 (10, 20, 30)，速度为 100
+    return 0;
+}*/

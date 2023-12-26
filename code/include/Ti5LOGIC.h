@@ -51,8 +51,8 @@ protected:
 
 public:
 	int rc = 0;
-	float j[6] = {0, 0, 0, 0, 0, 0};
-	float pos[6];
+	float j[6] = {0, 0, 0, 0, 0, 0};	//各关节值
+	float pos[6];	//末端动态位姿与初始位姿(x,y,z,yaw,pitch,roll)
 	float gap0,gap;
 	// 检测逆运动解出的角是否满足原始位姿
 	bool checkacc(float T[4][4]);
@@ -66,15 +66,15 @@ private:
 
 	void init_arm_structure()
 	{
-		rodnum = 8;
-		 rod[0].r = 30, rod[1].r = 30, rod[2].r = 24, rod[3].r = 24, rod[4].r = 25, rod[5].r = 0, rod[6].r = 24, rod[7].r = 25;//1kg
-		 rod[0].l = 130, rod[1].l = 98.57, rod[2].l = 190, rod[3].l = 98.57, rod[4].l = 65, rod[5].l = sqrt(98.57 * 98.57 + 125 * 125), rod[6].l = 98.57, rod[7].l = 65.2;//1kg，连杆长度
+		// // rodnum = 8;
+		// rod[0].r = 30, rod[1].r = 30, rod[2].r = 24, rod[3].r = 24, rod[4].r = 25, rod[5].r = 0, rod[6].r = 24, rod[7].r = 25;//1kg
+		// rod[0].l = 130, rod[1].l = 98.57, rod[2].l = 190, rod[3].l = 98.57, rod[4].l = 65, rod[5].l = sqrt(98.57 * 98.57 + 125 * 125), rod[6].l = 98.57, rod[7].l = 65.2;//1kg，连杆长度
 
 		// rod[0].r = 34, rod[1].r = 34, rod[2].r = 28.7, rod[3].r = 30, rod[4].r = 30, rod[5].r = 0, rod[6].r = 30, rod[7].r = 30;//2kg
 		// rod[0].l = 158.6, rod[1].l = 116.5, rod[2].l = 260, rod[3].l = 116.5, rod[4].l = 85, rod[5].l = sqrt( 107* 107 +  174.5* 174.5), rod[6].l =  107, rod[7].l = 87.5;//2kg
 
-		//rod[0].r = 45.5, rod[1].r = 45.5, rod[2].r = 53.5, rod[3].r = 40, rod[4].r = 39, rod[5].r = 0, rod[6].r = 39, rod[7].r = 39;//3kg
-		//rod[0].l = 190, rod[1].l = 168, rod[2].l = 300, rod[3].l = 168, rod[4].l = 160, rod[5].l = sqrt(140 * 140 + 147 * 147), rod[6].l = 147, rod[7].l = 96;//3kg，连杆长度
+		rod[0].r = 45.5, rod[1].r = 45.5, rod[2].r = 53.5, rod[3].r = 40, rod[4].r = 39, rod[5].r = 0, rod[6].r = 39, rod[7].r = 39;//3kg  
+		rod[0].l = 190, rod[1].l = 168, rod[2].l = 300, rod[3].l = 168, rod[4].l = 160, rod[5].l = sqrt(140 * 140 + 147 * 147), rod[6].l = 147, rod[7].l = 96;//3kg，连杆长度
 	
 		init_rodindex();
 	}
@@ -87,9 +87,9 @@ private:
 		jr2[0]=3.2,jr2[1]=M,jr2[2]=M,jr2[3]=M,jr2[4]=pi/2,jr2[5]=M;
 		gap=abs(jr1[0]);for(int i=1;i<6;i++) if(abs(jr1[i])>gap) gap=abs(jr1[i]);for(int i=0;i<6;i++) if(abs(jr2[i])>gap) gap=abs(jr2[i]);
 		gap0=gap;
-		 len[0] = 137, len[1] = 190, len[2] = 65, len[3] = 125, len[4] = 65, len[5] = 98.57, len[6] = 98.57, len[7] = 98.57;//1kg
+		// len[0] = 137, len[1] = 190, len[2] = 65, len[3] = 125, len[4] = 65, len[5] = 98.57, len[6] = 98.57, len[7] = 98.57;//1kg
 		// len[0] = 158.6, len[1] = 260, len[2] = 85, len[3] = 174.5, len[4] = 87.5, len[5] = 116.5, len[6] = 116.5, len[7] = 107;//2kg
-		//len[0] = rod[0].l, len[1] = rod[2].l, len[2] = rod[4].l, len[3] = 140, len[4] = rod[7].l, len[5] = rod[1].l, len[6] = rod[3].l, len[7] = rod[6].l;//3kg
+		len[0] = rod[0].l, len[1] = rod[2].l, len[2] = rod[4].l, len[3] = 140, len[4] = rod[7].l, len[5] = rod[1].l, len[6] = rod[3].l, len[7] = rod[6].l;//3kg
 		rball = len[1] + len[2] + len[3];
 		P_0[O[1]][0]=0,P_0[O[1]][1]=0,P_0[O[1]][2]=0;fromSn2S0(P_0[O[1]],1);
 		forward_move();
