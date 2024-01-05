@@ -135,7 +135,9 @@ void clear_elc_error();
 
 /*
 uart485通讯
+参数：
+  device_485_name：设备
 */
-void uart485_communication();
+void uart485_communication(char *device_485_name);
 #endif
 
