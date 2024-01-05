@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <libudev.h>
+// #include <libudev.h>
 
 #include <string.h>
 #include <sys/types.h>
@@ -27,6 +27,12 @@
 #include <unordered_map>
 #include <sstream>
 #include <map>
+
+
+
+#include <unistd.h>
+#include <fcntl.h>
+#include <termios.h>
 
 // #include "can/SingleCaninterface.h"
 // #include "can/motortypehelper.h"
@@ -63,6 +69,7 @@ extern uint32_t reg_min_app_position[6];//电机最大负向位
 extern uint32_t electricity[6];//电流值
 extern uint32_t electric_machinery[6];//电机错误状态
 extern uint32_t reg_fault_clear[6];//清除电机错误
+extern uint32_t AAA[6];//电机电流值
 
 extern string log_path;//log文件
 
@@ -99,7 +106,7 @@ void get_elc_info();
 /*设置电机参数
 参数: 
   elc_parameterlist 要设置的对应电机
-  elc_value 要设置的第n个电机
+  elc_value 要设置的n个电机
   parameterType 要设置的项目
   elc_value 新值
 */
@@ -125,5 +132,10 @@ void set_currentangle_to_zeropoints(string filename);
 
 /*清除电机错误*/
 void clear_elc_error();
+
+/*
+uart485通讯
+*/
+void uart485_communication();
 #endif
 
