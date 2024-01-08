@@ -138,6 +138,6 @@ uart485通讯
 参数：
   device_485_name：设备
 */
-void uart485_communication(char *device_485_name);
+int uart485_communication(char *device_485_name);
 #endif
 
