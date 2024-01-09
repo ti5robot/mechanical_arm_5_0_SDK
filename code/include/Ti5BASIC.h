@@ -139,5 +139,7 @@ uart485通讯
   device_485_name：设备
 */
 int uart485_communication(char *device_485_name);
+uint16_t merge_bytes(uint8_t high, uint8_t low);
+void parse_data(const uint8_t *bytes, int32_t *values);
 #endif
 
