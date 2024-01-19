@@ -10,7 +10,8 @@ sort: 3
 
 cd   ~
 
-git clone https://github.com/mrhouse-sweet/mechanical_arm_SDK-docs.git
+git clone https://github.com/ti5robot/mechanical_arm_5_0_SDK.git
+
 
 ```bash
   注意：如果输入上面命令提示：Command 'git' not found, but can be installed with:sudo apt install git
