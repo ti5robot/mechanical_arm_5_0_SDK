@@ -29,19 +29,19 @@ sudo apt install -y libspdlog-dev libopencv-dev libudev-dev libfmt-dev
 + `将usrlib中的libcontrolcan.so  libmylibscan.so libmylibti5.so文件拷贝到/usr/lib/下`
 
 ```bash
-cd ~/mechanical_arm_SDK-docs/code/usrlib
+cd ~/mechanical_arm_5_0_SDK/code/usrlib
 sudo cp * /usr/lib
 ```
 
 ```bash
 如果使用的是arm版本的，请使用以下目录的文件
-cd ~/mechanical_arm_SDK-docs/code/usrlib_arm
+cd ~/mechanical_arm_5_0_SDK/code/usrlib_arm
 sudo cp * /usr/lib
 ```
 
 ```bash
 如果要使用夹爪功能需要安装依赖：JodellTool-0.0.1-py3-none-any.whl
-cd ~/mechanical_arm_SDK-docs/code/jode
+cd ~/mechanical_arm_5_0_SDK/code/jode
 pip install JodellTool-0.0.1-py3-none-any.whl
 安装完成后，可在程序中使用夹爪功能了
 ```
@@ -57,9 +57,9 @@ pip install JodellTool-0.0.1-py3-none-any.whl
 
 ```shell
 首次编译需要执行以下两条命令
-cd ~/mechanical_arm_SDK-docs/code/src
-export CPLUS_INCLUDE_PATH=~/mechanical_arm_SDK-docs/code/include:$CPLUS_INCLUDE_PATH
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/mechanical_arm_SDK-docs/code/include/can
+cd ~/mechanical_arm_5_0_SDK/code/src
+export CPLUS_INCLUDE_PATH=~/mechanical_arm_5_0_SDK/code/include:$CPLUS_INCLUDE_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/mechanical_arm_5_0_SDK/code/include/can
 
 然后进行编译：
 sudo chmod +x gcc.sh
