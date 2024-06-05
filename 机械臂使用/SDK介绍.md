@@ -85,6 +85,12 @@ sort: 1
 ### 1.6. can
 该文件夹包含`can`通讯的头文件，机械臂是通过can通讯与控制机联通的，具体函数功能及参数请查看里面所包含的文件中注释了解函数作用。
 
+### 1.7. clamping_jaw.h
+该文件夹是夹爪功能函数
++ int clamp_jaw_close();//夹爪合
+
++ int clamp_jaw_open();//夹爪开
+
 ## 3.src
 ### 3.1 main.cpp
 

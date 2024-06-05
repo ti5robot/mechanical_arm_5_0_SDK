@@ -20,7 +20,6 @@ public:
 
 public:
     virtual OpenStateCan openCan(uint32_t deviceType=4,uint32_t deviceIndex=0,uint32_t canIndex=0, uint32_t baundRate=1000)=0 ;
-
     virtual bool closeCan() =0;
 
     void setCanID(int canID){ this->canID = canID;}
@@ -28,6 +27,8 @@ public:
 
     virtual int get_motor_run_mode() = 0;  //获取运行模式
     virtual int get_reg_status() = 0;      //获取状态
+    virtual int get_reg_i_q()=0;       //获取电机电流
+    virtual int get_reg_i_q_ref()=0;   //获取电机目标电流
 
     virtual int get_current_position() = 0;  //获取当前位置
 
@@ -101,6 +102,7 @@ public:
     virtual int stop() = 0; //停止启动
 
     virtual int request_reg_i_q() =0; //请求读取电流
+    virtual int request_reg_i_q_ref() =0; //请求读取电流
     virtual int request_reg_speed() =0; //请求读取电流
     virtual int request_reg_current_position() =0; //请求读取电流
     virtual int request_reg_status() =0; //请求读取电流

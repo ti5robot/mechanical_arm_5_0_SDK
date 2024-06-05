@@ -5,15 +5,15 @@
 #include <memory>
 #include "tcontrolcan.h"
 
-enum class CanType{Can=0, CanOpen=1,CanOpen4=2};//这是一个枚举类，定义了CanType类型，包括Can、CanOpen和CanOpen4三种取值。
+enum class CanType{Can=0, CanOpen=1,CanOpen4=2};
 
-class TControlCanFactor{ //这是一个类的声明，它包含了构造函数、成员函数和成员变量的声明。
-
-public:
-    explicit TControlCanFactor(CanType type,int canID=1); //这是TControlCanFactor类的构造函数声明，使用explicit关键字标记，可以防止隐式转换。它接受两个参数：type和canID。
+class TControlCanFactor{
 
 public:
-    bool open(); //这是TControlCanFactor类的两个成员函数声明，用于打开和关闭控制CAN的连接。
+    explicit TControlCanFactor(CanType type,int canID=1);
+
+public:
+    bool open();
     bool close();
 
     void setCanID(int canID){ tControlCAN->setCanID(canID);}

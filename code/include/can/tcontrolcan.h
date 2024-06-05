@@ -6,7 +6,7 @@
 
 #define SET_MOTOR_ENABLE 1
 #define	SET_MOTOR_DISABLE	2
-#define	GET_MOTOR_RUN_MODE 3
+#define	GET_MOTOR_RUN_MODE 3 
 #define	GET_REG_I_Q	4
 #define	GET_REG_I_Q_REF	5
 #define	GET_REG_SPEED	6
@@ -78,11 +78,12 @@ public:
     TControlCAN();
 
     virtual OpenStateCan openCan(uint32_t deviceType=4,uint32_t deviceIndex=0,uint32_t canIndex=0, uint32_t baundRate=1000) override;
-    
     virtual bool closeCan() override;
 
     virtual int get_motor_run_mode() override;
     virtual int get_reg_status() override;
+    virtual int get_reg_i_q()override;
+    virtual int get_reg_i_q_ref()override;
 
     virtual int get_current_position() override;
 
@@ -156,7 +157,8 @@ public:
 
     virtual int stop() override;
 
-    virtual int request_reg_i_q() override;
+    virtual int request_reg_i_q()override;
+    virtual int request_reg_i_q_ref()override;
     virtual int request_reg_speed() override;
     virtual int request_reg_current_position() override;
     virtual int request_reg_status() override;

@@ -20,6 +20,7 @@ enum RequestType{
     MOTOR_RUN_MODE = 1,
 
     REG_I_Q,
+    REG_I_Q_REF,
     REG_SPEED,
     REG_CURRENT_POSITION,
     REG_STATUS,

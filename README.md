@@ -12,7 +12,7 @@
 
 ## SDK下载地址
 
-+ SDK接口：[code](https://github.com/ti5robot/mechanical_arm_5_0_SDK/tree/master/code)
++ SDK接口：[code](https://github.com/mrhouse-sweet/mechanical_arm_SDK-docs/tree/main/code)
 
 ## 注意事项
 

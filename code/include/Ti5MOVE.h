@@ -9,7 +9,7 @@
 #include <vector>
 #include "tool.h"
 #include "Ti5LOGIC.h"
-// #include "Ti5BASIC.h"
+#include "Ti5BASIC.h"
 #include <time.h>
 
 #define USLEEPTIME 3000  //socket单条指令通信间隔（微秒）
@@ -38,6 +38,8 @@ extern float msg[1024];
 
 extern uint32_t plan_move_parameterList[6];
 extern float plan_move_nparameterList[50][6];
+
+extern char Info_Str[20]; // 定义一个字符数组用于存储 flag 的字符串表示
 
 struct Coordinate {
     double x;
@@ -125,10 +127,9 @@ void keyboard_controller();
 
 /*机械臂关节运动
 参数：
-    *arr：存放坐标点的数组
+    *arr：存放角度值的数组
 */
 void joint_movement(const float *arr);
-
 /*机械臂坐标运动
 参数：
     *arr：存放坐标点的数组

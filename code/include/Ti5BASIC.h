@@ -32,6 +32,10 @@
 #include <fcntl.h>
 #include <termios.h>
 
+
+#include <sys/stat.h>
+#include <sys/mman.h>
+
 // #include "can/SingleCaninterface.h"
 // #include "can/motortypehelper.h"
 
@@ -73,10 +77,23 @@ extern string log_path; // log文件
 extern string SDKversion; // SDK version
 extern int drag_value;
 
+extern char LogInfo[100];//存储写入log文件的信息
+
 #define BUFFER_SIZE 13 // uart通信
+
+bool get_Parameter(uint32_t *parameterList, int parameterType,int nodeCount);
+bool get_Parameter(uint8_t *nodeList,uint32_t *parameterList, int parameterType,int nodeCount);
+bool set_Parameter(uint32_t *parameterList, int parameterType,int nodeCount);
+bool set_Parameter(uint8_t *nodeList,uint32_t *parameterList, int parameterType,int nodeCount);
 
 extern "C"
 { // 添加extern "C"
+
+  // 写入调试信息到文件
+  void writeDebugInfoToFile(const char *func_name, const char *info);
+
+  // 输出数组的调试信息
+  void printArrayDebugInfo(float arr[], int size,const char *arr_name);
 
   // 查询机械臂是否停止运动
   bool inspect_brake();
@@ -94,9 +111,9 @@ extern "C"
 
   void read_ini_information(); // 读取ini配置文件的内容
 
-  void login(); // 登录can设备
+  bool login(); // 登录can设备
 
-  void logout(); // 登出can设备
+  bool logout(); // 登出can设备
 
   /*std::string query_can();
   查询can设备号
@@ -151,6 +168,8 @@ extern "C"
 
   int set_inputvalue(int value);
   void *exit_drag_teach(void *arg);
+
+
 
 } // 添加extern "C"
 #endif
