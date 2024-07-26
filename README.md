@@ -325,7 +325,7 @@
   ```
 可选直接关节控制（j）或末端位姿控制（p），两种模式下12个键盘按键
 <center>
-<img src="../img/222.png" style="zoom:10%" alt=" 图片不见了。。。 "/>
+<img src="img/222.png" style="zoom:10%" alt=" 图片不见了。。。 "/>
 <br>
 <div style="color:orange; border-bottom: 0.1px solid #d9d9d9;
 display: inline-block;
