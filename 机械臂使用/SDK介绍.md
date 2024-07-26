@@ -23,29 +23,233 @@ sort: 1
 
 机械臂控制基础库，包含了基本控制以及信息，用户在使用时需要根据自身使用方式自行选择调用。
 
-+ bool inspect_brake();//函数功能：查询机械臂是否停止运动
-
++ bool inspect_brake();
+  ```
+  函数功能：查询机械臂是否停止运动
+  返回值：true停止，false未停止
+  参数：无
+  示例：bool result=inspect_brake()
+  ```
 + void exit_progrem();//函数功能：退出程序
+  ```
+  函数功能：查询机械臂是否停止运动
+  返回值：true停止，false未停止
+  参数：无
+  示例：
+      int main()
+      {
+          login();
+          cout<<"login success"<<endl;
+          mechanical_arm_origin();
+          sleep(3);
+          show_value("pos:",TH.pos);
+          cout<<endl;
+          show_value("TH.j= ",TH.j);
+          exit_progrem();
+          while (1)
+          {
+              float arr1[6] = {2.2, -0.68, 2.22, 1.48, 1.56, 1.32};
+              joint_movement(arr1);
+              brake();
+              show_value("TH.j= ", TH.j);
+              arr1[5] = {2};
+              printf("倒水\n");
+              joint_movement(arr1);
+              arr1[5] = {1.32};
+              joint_movement(arr1);
+              float arr3[6] = {1.78983, -0.732808, 2.05103, 1.07256, 1.71376, 1.39214};
+              joint_movement(arr3);
+              brake();
+              show_value("TH.j= ", TH.j);
+              joint_movement(arr3);
+              printf("到达第2个点\n");
+              arr3[5] = {2};
+              joint_movement(arr3);
+              printf("倒水\n");
+              arr3[5] = {1.39214};
+              joint_movement(arr3);
+          }
+          brake();
+      }
+  ```
++ void writeDebugInfoToFile(const char *func_name, const char *info);
+  ```
+  函数功能：将信息写入log中
+  返回值：无
+  参数：
+      *func_name：函数名字
+      *info：要写入log的信息内容
+  示例：
+      getCurrentposition->getParameter(canidList, reg_min_app_position, MotorTypeHelper::REG_MIN_APP_POSITION, IDNUM);
+      for (int i = 0; i < 6; i++)
+      {
+            cout << "电机" << i << "最大负向位置: " << static_cast<int32_t>(reg_min_app_position[i]) << endl;
+            sprintf(LogInfo, "电机%d最大正向位置: %d", i, static_cast<int32_t>(reg_min_app_position[i]));
+            writeDebugInfoToFile(__func__, LogInfo);
+      }
+      cout << endl;
+  ```
 
-+ std::string SDK_version();//函数功能：SDK版本号
-
-+ void loggerinfo(string content);//函数功能：添加log
-
-+ void login();//函数功能：登录can设备
++ void login();
+  ```
+  函数功能：登录can设备
+  返回值：无
+  参数：无
+  示例：
+      login();
+      getCurrentposition->getParameter(canidList, reg_min_app_position, MotorTypeHelper::REG_MIN_APP_POSITION, IDNUM);
+      for (int i = 0; i < 6; i++)
+      {
+            cout << "电机" << i << "最大负向位置: " << static_cast<int32_t>(reg_min_app_position[i]) << endl;
+            sprintf(LogInfo, "电机%d最大正向位置: %d", i, static_cast<int32_t>(reg_min_app_position[i]));
+            writeDebugInfoToFile(__func__, LogInfo);
+      }
+      cout << endl;
+  ```
 
 + void logout();//函数功能：登出can设备
+    ```
+  函数功能：登录can设备
+  返回值：无
+  参数：无
+  示例：
+      login();
+      getCurrentposition->getParameter(canidList, reg_min_app_position, MotorTypeHelper::REG_MIN_APP_POSITION, IDNUM);
+      for (int i = 0; i < 6; i++)
+      {
+            cout << "电机" << i << "最大负向位置: " << static_cast<int32_t>(reg_min_app_position[i]) << endl;
+            sprintf(LogInfo, "电机%d最大正向位置: %d", i, static_cast<int32_t>(reg_min_app_position[i]));
+            writeDebugInfoToFile(__func__, LogInfo);
+      }
+      cout << endl;
+      logout();
+  ```
 
-+ std::vector<std::string> query_can();//函数功能：查询can设备号
++ std::vector<std::string> query_can();
+  ```
+  函数功能：查询can设备号
+  返回值：无
+  参数：无
+  示例：
+      vector<string> productSerialNumbers = query_can();
+      if (productSerialNumbers.empty()) {
+        cout << RED<<"未找到任何 USB 设备，请插入设备后重试！" <<RESET << endl;
+        exit(0);
+      } else {
+        cout <<CYAN<< "找到的 CAN 设备序列号：" <<RESET;
+        for (const string& serialNumber : productSerialNumbers) {
+            cout << CYAN <<serialNumber <<RESET << endl;
+        }
+      }
+  ```
 
-+ void get_elc_info();//函数功能：获取电机参数
++ void get_elc_info();
+  ```
+  函数功能：获取电机参数
+  返回值：无
+  参数：无
+  示例：
+      int main()
+      {
+          login();
+          get_elc_info();
+          logout();
+          return 0;
+      }
+  ```
 
-+ void set_elc_info(uint32_t *elc_parameterlist,int elc_num, int parameterType,uint32_t elc_value);//设置电机参数
-
-参数: 
-  elc_parameterlist 要设置的对应电机，
-  elc_value 要设置的第n个电机，
-  parameterType 要设置的项目，
-  elc_value 新值
++ void set_elc_info(uint32_t *elc_parameterlist,int elc_num, int parameterType,uint32_t elc_value);
+   ```
+   函数功能：设置电机参数
+   返回值：
+   参数：
+       elc_parameterlist 要设置的对应电机，
+       elc_value 要设置的第n个电机，
+       parameterType 要设置的项目，
+       elc_value 新值
+   示例：
+       int main()
+       {
+           login();
+           set_elc_info(reg_position_kp,0,MotorTypeHelper::REG_POSITION_KP, 500);
+           set_elc_info(reg_position_kp,1,MotorTypeHelper::REG_POSITION_KP, 700);
+           set_elc_info(reg_position_kp,2,MotorTypeHelper::REG_POSITION_KP, 800);
+           set_elc_info(reg_position_kp,3,MotorTypeHelper::REG_POSITION_KP, 900);
+           set_elc_info(reg_position_kp,4,MotorTypeHelper::REG_POSITION_KP, 1000);
+           set_elc_info(reg_position_kp,5,MotorTypeHelper::REG_POSITION_KP, 1100);
+           logout();
+           return 0;
+       }
+   ```
++ bool get_electricity_status();
+  ```
+  函数功能：获取各关节电机电流值
+  返回值：true为无异常，false为异常
+  参数：无
+  示例：
+      int main()
+      {
+           login();
+           if(get_electricity_status() != true)
+            {
+              cout << "电机异常！" << endl;
+            }
+           logout();
+           return 0;
+       }
+  ```
++ int get_elektrische_Maschinen_status();
+  ```
+  函数功能：获取机械臂错误状态
+  返回值：
+      0：无错误
+      1：软件错误
+      2：过压
+      4：欠压
+      16：启动错误
+  参数：无
+  示例：
+      int main()
+      {
+           login();
+           int num = get_elektrische_Maschinen_status();
+           logout();
+           return 0;
+       }
+  ```
++ void clear_elc_error();
+  ```
+  函数功能：清除电机错误
+  返回值：无
+  参数：无
+  示例：
+      int main()
+      {
+          login();
+          if(get_electricity_status() != true)
+          {
+              cout << "电机异常！" << endl;
+          }
+          clear_elc_erro();
+          logout();
+          return 0;
+       }
+  ```
++ int uart485_communication(char *device_485_name);
+  ```
+  函数功能：485通信功能，通信协议见《钛虎485通信协议.xlsx》
+  返回值：设备名称
+  参数：失败返回-1，成功返回0
+  示例：
+      int main()
+      {
+          login();
+          uart485_communication("/dev/ttyUSB0");
+          logout();
+          return 0;
+       }
+  ```
+  
 
 ### 1.3 Ti5LOGIC.h
 
@@ -56,25 +260,208 @@ sort: 1
 
 机械臂运动控制库，包含的功能有直线运动，圆弧运动，机械臂初始化，机械臂手动模式控制，机械臂关节运动，机械臂坐标运动，获取机械臂当前角度值，获取机械臂当前位姿，机械臂刹车，查看机械臂是否停止运动，机械臂手动规划路径点并记录到文件中，机械臂加载路径文件。
 
-+ void mechanical_arm_origin();//机械臂初始化位置
++ void mechanical_arm_origin();
+  ```
+  函数功能：机械臂初始化位置
+  返回值：无
+  参数：无
+  示例：
+      int main()
+      {
+          login();
+          mechanical_arm_origin();
+          logout();
+          return 0;
+       }
+  ```
 
-+ void keyboard_controller();//机械臂手动模式
++ void keyboard_controller();
+  ```
+  函数功能：机械臂手动模式
+  返回值：无
+  参数：无
+  示例：
+      int main()
+      {
+          login();
+          mechanical_arm_origin();
+          keyboard_controller();
+          logout();
+          return 0;
+       }
+  ```
+可选直接关节控制（j）或末端位姿控制（p），两种模式下12个键盘按键
+<center>
+<img src="../img/222.png" style="zoom:10%" alt=" 图片不见了。。。 "/>
+<br>
+<div style="color:orange; border-bottom: 0.1px solid #d9d9d9;
+display: inline-block;
+color: #999;
+padding: 1px;"></div>
+</center>
+<br>
 
-+ void joint_movement(const float *arr);//机械臂关节运动
++ void joint_movement(const float *arr);
+   ```
+  函数功能：机械臂关节运动
+  返回值：无
+  参数：各个关节值
+  示例：
+     int main()
+      {
+          login();
+          mechanical_arm_origin();
+          float arr[6]={2.3,3.2,2.2,0,0,0};
+          joint_movement(arr);
+          logout();
+          return 0;
+       }
+  ```
 
-+ void pos_movement(const float *arr);//机械臂坐标运动
 
-+ bool circle_move(float O[3], float U[3],float K, float startN[6]);// 圆弧运动，逆时针是正方向，参数：O圆心(围绕哪个点)，U法向量（确定圆是在哪个面转），K圆心角（0~2PI），startN起始点
++ void pos_movement(const float *arr);
+  ```
+  函数功能：机械臂坐标运动
+  返回值：无
+  参数：坐标点
+  示例：
+     int main()
+      {
+          login();
+          mechanical_arm_origin();
+          float arr[6]={-7.01863, 311.595, 2.588, -2.02847, -3.11001, 0.0560048};
+          pos_movement(arr);
+          logout();
+          return 0;
+       }
+  ```
 
-+ int current_angle();//获取当前角度
++ bool circle_move(float O[3], float U[3],float K, float startN[6]);
+   ```
+  函数功能：圆弧运动，逆时针是正方向，
+  返回值：成功true，失败false
+  参数：O圆心(围绕哪个点)，U法向量（确定圆是在哪个面转），K圆心角（0~2PI），startN起始点
+  示例：
+     int main()
+      {
+          login();
+          mechanical_arm_origin();
+          float _o[3]=(3.4,311.59,2.58);
+          float _u[3]=(3.4,211.59,2.00);
+          float arr[6]={-7.01863, 311.595, 2.588, -2.02847, -3.11001, 0.0560048};
+          circle_move(_o,_u,arr);
+          logout();
+          return 0;
+       }
+  ```
 
-+ void linear_move(Point start, Point end,float stepSize);//直线运动规划，参数：start：起点 ，end：终点，stepSize：步长
 
-+ int current_pose(float posz[]);//获取当前位姿
++ int current_angle();
+   ```
+  函数功能：获取当前角度
+  返回值：成功返回1，失败返回-1
+  参数：无
+  示例：
+     int main()
+      {
+          login();
+          mechanical_arm_origin();
+          current_angle();
+          logout();
+          return 0;
+       }
+  ```
 
-+ bool brake();//机械臂刹车
+
++ void linear_move(Point start, Point end,float stepSize);
+   ```
+  函数功能：直线运动规划
+  返回值：无
+  参数：start：起点 ，end：终点，stepSize：步长
+  示例：
+     int main()
+      {
+          login();
+          mechanical_arm_origin();
+          Point start[1];
+          Point end[1];
+          cout << "请输入起始点坐标x, y, z" << endl;
+
+          for (int i = 0; i < 1; i++)
+          {
+            cin >> start[i].x;
+            cin >> start[i].y;
+            cin >> start[i].z;
+          }
+
+          cout << "请输入终点坐标x, y, z" << endl;
+          for (int j = 0; j < 1; j++)
+          {
+            cin >> end[j].x;
+            cin >> end[j].y;
+            cin >> end[j].z;
+          }
+          linear_move(start[0],end[0],20);
+          logout();
+          return 0;
+       }
+  ```
+
+
++ int current_pose(float posz[]);
+   ```
+  函数功能：获取当前位姿
+  返回值：成功返回0，失败返回-1
+  参数：存放位置的数组中
+  示例：
+     int main()
+      {
+          login();
+          mechanical_arm_origin();
+          float arr[6];
+          current_pose(arr);
+          logout();
+          return 0;
+       }
+  ```
+
+
++ bool brake();
+   ```
+  函数功能：机械臂刹车
+  返回值：成功返回true
+  参数：无
+  示例：
+     void signalHandler(int signum)
+     {
+        char aaa;
+        cout << "Interrupt signal (" << signum << ") received.\n";
+        brake();  
+        cout << "stop!!" << endl;
+        inspect_brake(); 
+        logout();
+        exit(signum);
+     }
+  ```
+
 
 + bool IsBrake();//机械臂是否停止运动
+     ```
+  函数功能：机械臂刹车
+  返回值：成功返回true
+  参数：无
+  示例：
+     void signalHandler(int signum)
+     {
+        char aaa;
+        cout << "Interrupt signal (" << signum << ") received.\n";
+        brake();  
+        cout << "stop!!" << endl;
+        inspect_brake(); 
+        logout();
+        exit(signum);
+     }
+  ```
 
 
 
@@ -87,10 +474,45 @@ sort: 1
 
 ### 1.7. clamping_jaw.h
 该文件夹是夹爪功能函数
-+ int clamp_jaw_close();//夹爪合
++ int clamp_jaw_close(const std::string& pythonPath);
+   ```
+  函数功能：夹爪合
+  返回值：成功返回0，失败返回-1
+  参数：无
+  示例：
+  ```
 
-+ int clamp_jaw_open();//夹爪开
 
++ int clamp_jaw_open(const std::string& pythonPath);
+     ```
+  函数功能：夹爪开
+  返回值：成功返回0，失败返回-1
+  参数：无
+  示例：
+     std::string path = "/home/ubuntu/.local/lib/python3.10/site-packages";
+     while(1){
+         clamp_jaw_open(path);
+         sleep(2);
+         clamp_jaw_close(path);
+         sleep(2);
+    }
+  ```
+### 1.8. socket_service.h
++ int socket_server(std::string& serverIP,int port);
+   ```
+   函数功能：socket连接函数，按照通信协议接收坐标和命令，通信协议见《钛虎socket通信协议.xlsx》
+   返回值：成功返回0，失败返回1
+   参数：serverIP 服务器地址，port 服务器端口号
+   示例：
+     int main()
+      {
+          login();
+          mechanical_arm_origin();
+          socket_server(ip_test,12345);
+          logout();
+          return 0;
+       }
+   ```
 ## 3.src
 ### 3.1 main.cpp
 
