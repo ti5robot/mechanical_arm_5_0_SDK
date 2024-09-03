@@ -128,13 +128,19 @@ void keyboard_controller();
 /*机械臂关节运动
 参数：
     *arr：存放角度值的数组
+返回值：
+    1：成功
+    0：失败
 */
-void joint_movement(const float *arr);
+bool joint_movement(const float *arr);
 /*机械臂坐标运动
 参数：
     *arr：存放坐标点的数组
+返回值：
+    1：成功
+    0：失败
 */
-void pos_movement(const float *arr);
+bool pos_movement(const float *arr);
 
 /*圆弧运动，逆时针是正方向
 参数：
@@ -179,6 +185,13 @@ void write_value(int pj_flag,string filename,float array[6]);
     filename：存放数值的文件
 */
 void load_program(int flag,string filename);
+
+/*拖动示教加载作业程序
+参数：
+    flag：角度或者位姿标识,1为角度 ，0为坐标
+    filename：存放数值的文件
+*/
+void drag_load_program(int flag,string filename);
 
 /*
 机械臂手动模式:j

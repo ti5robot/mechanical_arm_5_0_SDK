@@ -26,8 +26,11 @@ extern "C"
    /*
       GravityCompensation
    */
-
+   //1kg拖动示教
    float *GravityCompensation(float frr[6]);
+
+   //2kg拖动示教
+   float *GravityCompensation_2_kg(float frr[6]);
 
    // void stop_drag_teaching();
    
@@ -37,5 +40,7 @@ extern "C"
         writemode：角度或者位姿标识,1为角度 ，0为坐标
         filename：文件名*/
    void dragg_teaching(int writemode,string filename);
+
+   void dragg_teaching_2_kg(int writemode,string filename);
 } // 添加：extern C
 #endif

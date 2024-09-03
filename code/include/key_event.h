@@ -30,6 +30,6 @@ void *monitor_buttons(void *arg);
 void *key_control(void *arg);
 
 //执行程序
-int start_key();
+bool start_key();
 
 

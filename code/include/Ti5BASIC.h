@@ -36,6 +36,14 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 
+
+
+
+
+
+#include <vector>
+#include <regex>
+
 // #include "can/SingleCaninterface.h"
 // #include "can/motortypehelper.h"
 
@@ -169,7 +177,18 @@ extern "C"
   int set_inputvalue(int value);
   void *exit_drag_teach(void *arg);
 
-
+  // 拖动示教读取文件内容函数：线性插值生成插值点
+  std::vector<std::vector<float>> drag_interpolate(const std::vector<float>& start, const std::vector<float>& end, int num_points);
+  /*
+    拖动示教读取文件内容
+    参数：
+      filename：文件名
+      steps：插值步数
+    返回值：
+      0：读取成功
+      1：读取失败
+  */
+  int drag_read_data(string filename,int steps);
 
 } // 添加extern "C"
 #endif

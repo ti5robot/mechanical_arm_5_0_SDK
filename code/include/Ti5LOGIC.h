@@ -64,15 +64,15 @@ extern "C"
 
 		void init_arm_structure()
 		{
-			// rodnum = 8;
+			rodnum = 8;
 			// rod[0].r = 30, rod[1].r = 30, rod[2].r = 24, rod[3].r = 24, rod[4].r = 25, rod[5].r = 0, rod[6].r = 24, rod[7].r = 25;//1kg
 			// rod[0].l = 130, rod[1].l = 98.57, rod[2].l = 190, rod[3].l = 98.57, rod[4].l = 65, rod[5].l = sqrt(98.57 * 98.57 + 125 * 125), rod[6].l = 98.57, rod[7].l = 65.2;//1kg，连杆长度
 
-			// rod[0].r = 34, rod[1].r = 34, rod[2].r = 28.7, rod[3].r = 30, rod[4].r = 30, rod[5].r = 0, rod[6].r = 30, rod[7].r = 30;//2kg
-			// rod[0].l = 158.6, rod[1].l = 116.5, rod[2].l = 260, rod[3].l = 116.5, rod[4].l = 85, rod[5].l = sqrt( 107* 107 +  174.5* 174.5), rod[6].l =  107, rod[7].l = 87.5;//2kg
+			rod[0].r = 34, rod[1].r = 34, rod[2].r = 28.7, rod[3].r = 30, rod[4].r = 30, rod[5].r = 0, rod[6].r = 30, rod[7].r = 30;//2kg
+			rod[0].l = 158.6, rod[1].l = 116.5, rod[2].l = 260, rod[3].l = 116.5, rod[4].l = 85, rod[5].l = sqrt( 107* 107 +  174.5* 174.5), rod[6].l =  107, rod[7].l = 87.5;//2kg
 
-			rod[0].r = 45.5, rod[1].r = 45.5, rod[2].r = 53.5, rod[3].r = 40, rod[4].r = 39, rod[5].r = 0, rod[6].r = 39, rod[7].r = 39;						   // 3kg
-			rod[0].l = 190, rod[1].l = 168, rod[2].l = 300, rod[3].l = 168, rod[4].l = 160, rod[5].l = sqrt(140 * 140 + 147 * 147), rod[6].l = 147, rod[7].l = 96; // 3kg，连杆长度
+			// rod[0].r = 45.5, rod[1].r = 45.5, rod[2].r = 53.5, rod[3].r = 40, rod[4].r = 39, rod[5].r = 0, rod[6].r = 39, rod[7].r = 39;						   // 3kg
+			// rod[0].l = 190, rod[1].l = 168, rod[2].l = 300, rod[3].l = 168, rod[4].l = 160, rod[5].l = sqrt(140 * 140 + 147 * 147), rod[6].l = 147, rod[7].l = 96; // 3kg，连杆长度
 
 			init_rodindex();
 		}
