@@ -17,8 +17,6 @@
 #include "clamping_jaw.h"
 #include "drag_drop.h"
 
-#include "example.h"
-
 #include <csignal>
 
 using namespace std;
